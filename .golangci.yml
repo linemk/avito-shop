@@ -1,0 +1,29 @@
+run:
+  timeout: 1m
+
+linters: # подключаем линтеры
+  disable-all: true
+  enable:
+    - errcheck # проверяет обработку ошибок
+    - govet # анализирует потенциальные ошибки
+    - staticcheck # ищет неиспользуемые переменные, функции, дублирующий код
+    - gosec # проверяет уязвимости
+    - revive # анализирует стиль, требует комментирование
+
+issues:
+  exclude-dirs:
+    - tests
+  exclude-files:
+    - _test.go
+  max-issues-per-linter: 10
+  max-same-issues: 3
+
+linters-settings: # отдельные настройки
+  errcheck:
+    check-blank: true # запрет игнорирования ошибок с помощью _
+  revive:
+    severity: warning # вместо ошибки по стилю выдает предупреждение
+  gosec:
+    excludes: G104  # игнорировать ошибки пустого блока if err != nil {}
+    severity: "high"
+    confidence: 0.8
